@@ -3,7 +3,7 @@ import uuid
 from flask import Flask, flash, jsonify, make_response, request, redirect, url_for, send_file
 from flask_cors import cross_origin
 from werkzeug.utils import secure_filename
-from RemoveService.remove import remove_background
+from Services.RemoveService import remove_background
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
