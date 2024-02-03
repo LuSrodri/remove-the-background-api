@@ -20,7 +20,7 @@ def allowed_file(filename):
 def ping():
     return '<h1>pong</h1>'
 
-@app.route("/removebackground", methods=['POST'])
+@app.route("/removeback", methods=['POST'])
 @cross_origin()
 def upload_file():
     if 'file' not in request.files:
@@ -34,7 +34,6 @@ def upload_file():
     
     if file and allowed_file(file.filename):
         filename = secure_filename(str(uuid.uuid4()) + '.png')
-        # save into 'uploads' folder
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         image_without_background_path = remove_background(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -47,4 +46,4 @@ def upload_file():
         
         
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
