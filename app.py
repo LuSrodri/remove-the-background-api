@@ -3,6 +3,7 @@ import uuid
 from flask import Flask, flash, jsonify, make_response, request, redirect, url_for, send_file
 from flask_cors import cross_origin
 from werkzeug.utils import secure_filename
+from RemoveService.remove import remove_background
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -36,7 +37,9 @@ def upload_file():
         # save into 'uploads' folder
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        return send_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        image_without_background_path = remove_background(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        return send_file(image_without_background_path)
     
     else:
         response = make_response(jsonify({'error': 'File not allowed'}), 400)
