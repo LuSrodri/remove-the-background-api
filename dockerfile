@@ -25,4 +25,4 @@ RUN wget -O /home/.u2net/silueta.onnx https://github.com/danielgatis/rembg/relea
 # For environments with multiple CPU cores, increase the number of workers
 # to be equal to the cores available.
 # Timeout is set to 0 to disable the timeouts of the workers to allow Cloud Run to handle instance scaling.
-CMD exec gunicorn --bind --preload :$PORT --workers 1 --threads 2 --timeout 0 app:app
+CMD exec gunicorn --bind :$PORT --preload --workers 1 --threads 2 --timeout 0 app:app
